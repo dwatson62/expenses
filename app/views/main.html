@@ -1,8 +1,10 @@
 <div class="jumbotron">
   <h1>Add an expense</h1>
-  <input type='text' ng-model='mainCtrl.newItem' />
+  <input type='text' ng-model='mainCtrl.newPrice' placeholder='Enter the amount...' />
+  <input type='text' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
   <button type='submit' ng-click='mainCtrl.addItem()'>Add Item</button>
-  <ul ng-repeat='item in mainCtrl.itemList'>
-    <li>{{item}}</li>
-  </ul>
+  <ol ng-repeat='item in mainCtrl.itemList'>
+    <li>£{{item.amount}} {{item.name}}</li>
+  </ol>
+  <div ng-model='mainCtrl.total'>Total: £{{mainCtrl.total}}</div>
 </div>
