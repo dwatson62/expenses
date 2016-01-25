@@ -16,22 +16,34 @@ angular.module('expensesApp')
     ];
 
   var self = this;
-  self.itemList = [];
   self.total = 0;
+  self.categoryList = [{ 'name': 'Bills', 'itemList': [] }, { 'name': 'Food', 'itemList': [] }, { 'name': 'Coffee', 'itemList': [] }];
+  self.itemForm = { 'Bills': false, 'Food': false, 'Coffee': false };
 
-  self.addItem = function() {
-    self.itemList.push({ 'name': self.newItem, 'amount': self.newPrice });
+  self.addItem = function(index) {
+    self.categoryList[index]['itemList'].push({ 'name': self.newItem, 'amount': self.newPrice });
     self.newItem = '';
     self.newPrice = '';
     self.updateTotal();
+    var category = self.categoryList[index]['name'];
+    self.itemForm[category] = false;
   };
 
   self.updateTotal = function() {
     var total = 0;
-    for (var i in self.itemList) {
-      total += parseInt(self.itemList[i].amount, 10);
+    for (var i in self.categoryList) {
+      for (var j in self.categoryList[i].itemList) {
+        total += parseInt(self.categoryList[i].itemList[j].amount, 10);
+      }
     }
     self.total = total;
+  };
+
+  self.showItemForm = function(category) {
+    for (var i in self.itemForm) {
+      self.itemForm[i] = false;
+    }
+    self.itemForm[category] = true;
   };
 
   });

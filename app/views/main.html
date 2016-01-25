@@ -1,10 +1,15 @@
-<div class="jumbotron">
-  <h1>Add an expense</h1>
-  <input type='text' ng-model='mainCtrl.newPrice' placeholder='Enter the amount...' />
-  <input type='text' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
-  <button type='submit' ng-click='mainCtrl.addItem()'>Add Item</button>
-  <ol ng-repeat='item in mainCtrl.itemList'>
-    <li>£{{item.amount}} {{item.name}}</li>
-  </ol>
-  <div ng-model='mainCtrl.total'>Total: £{{mainCtrl.total}}</div>
+<h1 ng-model='mainCtrl.total'>Total: £{{mainCtrl.total}}</h1>
+<div class="jumbotron row">
+  <div class='category col-md-4' ng-repeat='category in mainCtrl.categoryList'>
+    <h3>{{category.name}}</h3>
+    <p class='{{category.name}}' ng-show='mainCtrl.itemForm["{{category.name}}"]'>
+      <span ng-show='mainCtrl.itemForm'>£ </span><input type='text' ng-model='mainCtrl.newPrice' size='5'/>
+      <input type='text' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
+      <button class='btn btn-primary' type='submit' ng-show='mainCtrl.itemForm' ng-click='mainCtrl.addItem($index)'>Save</button>
+    <p>
+    <button class='btn btn-primary' type='submit' ng-hide='mainCtrl.itemForm["{{category.name}}"]' ng-click='mainCtrl.showItemForm(category.name)'>New Item</button>
+    <ol ng-repeat='item in category.itemList'>
+      <li><h4>£{{item.amount}} {{item.name}}</h4></li>
+    </ol>
+  </div>
 </div>

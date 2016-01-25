@@ -24,18 +24,18 @@ describe('Controller: MainCtrl', function () {
   it('can add an item to the list with a price', function() {
     MainCtrl.newItem = 'Rent';
     MainCtrl.newPrice = '525';
-    MainCtrl.addItem();
-    expect(MainCtrl.itemList.length).toBe(1);
-    expect(MainCtrl.itemList[0]).toEqual({ 'name': 'Rent', 'amount': '525' });
+    MainCtrl.addItem(0);
+    expect(MainCtrl.categoryList[0]['itemList'].length).toBe(1);
+    expect(MainCtrl.categoryList[0]['itemList']).toEqual([{ 'name': 'Rent', 'amount': '525' }]);
   });
 
   it('keeps a running total', function() {
     MainCtrl.newItem = 'Rent';
     MainCtrl.newPrice = '525';
-    MainCtrl.addItem();
+    MainCtrl.addItem(0);
     MainCtrl.newItem = 'Oyster';
     MainCtrl.newPrice = '160';
-    MainCtrl.addItem();
+    MainCtrl.addItem(0);
     expect(MainCtrl.total).toEqual(685);
   });
 });
