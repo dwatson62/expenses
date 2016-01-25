@@ -1,0 +1,8 @@
+<div class="jumbotron">
+  <h1>Add an expense</h1>
+  <input type='text' ng-model='mainCtrl.newItem' />
+  <button type='submit' ng-click='mainCtrl.addItem()'>Add Item</button>
+  <ul ng-repeat='item in mainCtrl.itemList'>
+    <li>{{item}}</li>
+  </ul>
+</div>
