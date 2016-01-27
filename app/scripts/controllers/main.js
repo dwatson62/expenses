@@ -59,4 +59,9 @@ angular.module('expensesApp')
       self.categoryForm = false;
     };
 
+    self.deleteItem = function(item, category) {
+      self.categoryList = categoryFactory.deleteItem(self.categoryList, item, category);
+      self.updateTotal();
+    };
+
     }]);

@@ -16,5 +16,18 @@ angular.module('expensesApp')
       return total;
     };
 
+    Category.prototype.getIndexOfList = function(list, name) {
+      for (var i = 0; i < list.length; i ++) {
+        if (list[i].name === name) { return i; }
+      }
+    };
+
+    Category.prototype.deleteItem = function(categoryList, item, category) {
+      var catIndex = this.getIndexOfList(categoryList, category);
+      var itIndex = this.getIndexOfList(categoryList[catIndex].itemList, item);
+      categoryList[catIndex].itemList.splice(itIndex, 1);
+      return categoryList;
+    };
+
     return Category;
   });
