@@ -27,8 +27,8 @@ describe('Controller: MainCtrl', function () {
     MainCtrl.addItem(0);
   };
 
-  var deleteItem = function(name, category) {
-    MainCtrl.deleteItem(name, 'Bills');
+  var deleteItem = function(name, catIndex) {
+    MainCtrl.deleteItem(name, catIndex);
   };
 
   describe('Items', function() {
@@ -40,7 +40,7 @@ describe('Controller: MainCtrl', function () {
 
     it('can delete an item from the list', function() {
       addItem('Rent', '525');
-      deleteItem('Rent', 'Bills');
+      deleteItem('Rent', 0);
       expect(MainCtrl.categoryList[0]['itemList'].length).toBe(0);
     });
   });
@@ -67,7 +67,7 @@ describe('Controller: MainCtrl', function () {
 
     it('deleting an item updates the total', function() {
       addItem('Rent', '525');
-      deleteItem('Rent', 'Bills');
+      deleteItem('Rent', 0);
       expect(MainCtrl.total).toEqual(0);
     });
   });

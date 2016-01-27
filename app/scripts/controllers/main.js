@@ -22,6 +22,7 @@ angular.module('expensesApp')
     self.total = 0;
     self.categoryList = [{ 'name': 'Bills', 'itemList': [] }, { 'name': 'Food', 'itemList': [] }, { 'name': 'Coffee', 'itemList': [] }];
     self.itemForm = { 'Bills': false, 'Food': false, 'Coffee': false };
+    self.categoryForm = false;
 
     self.addItem = function(index) {
       var item = itemFactory.add(self.newItem, self.newPrice);
@@ -48,19 +49,19 @@ angular.module('expensesApp')
       self.itemForm[category] = true;
     };
 
-    self.showCategoryForm = function() {
-      self.categoryForm = true;
+    self.toggleCategoryForm = function() {
+      self.categoryForm = !self.categoryForm;
     };
 
     self.addCategory = function() {
       var category = categoryFactory.add(self.newCategory);
       self.categoryList.push(category);
       self.newCategory = '';
-      self.categoryForm = false;
+      self.toggleCategoryForm();
     };
 
-    self.deleteItem = function(item, category) {
-      self.categoryList = categoryFactory.deleteItem(self.categoryList, item, category);
+    self.deleteItem = function(item, catIndex) {
+      self.categoryList = categoryFactory.deleteItem(self.categoryList, item, catIndex);
       self.updateTotal();
     };
 

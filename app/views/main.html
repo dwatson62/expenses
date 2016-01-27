@@ -1,5 +1,5 @@
 <h1 ng-model='mainCtrl.total'>Total: {{mainCtrl.total | currency:"£"}}</h1>
-<button ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.showCategoryForm()'>New Category</button>
+<button ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.toggleCategoryForm()'>New Category</button>
 <input type='text' ng-model='mainCtrl.newCategory' ng-show='mainCtrl.categoryForm' />
 <button ng-show='mainCtrl.categoryForm' ng-click='mainCtrl.addCategory()'>Save</button>
 <div class="jumbotron row">
@@ -14,7 +14,7 @@
     <button class='btn btn-primary' type='submit' ng-hide='mainCtrl.itemForm["{{category.name}}"]' ng-click='mainCtrl.showItemForm(category.name)'>New Item</button>
     <ol ng-repeat='item in category.itemList'>
       <li><h4>£{{item.amount}} {{item.name}}</h4></li>
-      <span ng-click='mainCtrl.deleteItem(item.name, category.name)'>X</span>
+      <span ng-click='mainCtrl.deleteItem(item.name, $index)'>X</span>
     </ol>
   </div>
 </div>

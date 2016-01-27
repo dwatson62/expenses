@@ -22,8 +22,7 @@ angular.module('expensesApp')
       }
     };
 
-    Category.prototype.deleteItem = function(categoryList, item, category) {
-      var catIndex = this.getIndexOfList(categoryList, category);
+    Category.prototype.deleteItem = function(categoryList, item, catIndex) {
       var itIndex = this.getIndexOfList(categoryList[catIndex].itemList, item);
       categoryList[catIndex].itemList.splice(itIndex, 1);
       return categoryList;
