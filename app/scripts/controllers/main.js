@@ -33,7 +33,7 @@ angular.module('expensesApp')
     var total = 0;
     for (var i in self.categoryList) {
       for (var j in self.categoryList[i].itemList) {
-        total += parseInt(self.categoryList[i].itemList[j].amount, 10);
+        total += parseFloat(self.categoryList[i].itemList[j].amount, 10);
       }
     }
     self.total = total;
@@ -44,6 +44,16 @@ angular.module('expensesApp')
       self.itemForm[i] = false;
     }
     self.itemForm[category] = true;
+  };
+
+  self.showCategoryForm = function() {
+    self.categoryForm = true;
+  };
+
+  self.addCategory = function() {
+    self.categoryList.push({ 'name': self.newCategory, 'itemList': [] });
+    self.newCategory = '';
+    self.categoryForm = false;
   };
 
   });

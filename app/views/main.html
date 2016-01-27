@@ -1,4 +1,7 @@
-<h1 ng-model='mainCtrl.total'>Total: £{{mainCtrl.total}}</h1>
+<h1 ng-model='mainCtrl.total'>Total: {{mainCtrl.total | currency:"£"}}</h1>
+<button ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.showCategoryForm()'>New Category</button>
+<input type='text' ng-model='mainCtrl.newCategory' ng-show='mainCtrl.categoryForm' />
+<button ng-show='mainCtrl.categoryForm' ng-click='mainCtrl.addCategory()'>Save</button>
 <div class="jumbotron row">
   <div class='category col-md-4' ng-repeat='category in mainCtrl.categoryList'>
     <h3>{{category.name}}</h3>

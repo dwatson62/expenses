@@ -29,6 +29,15 @@ describe('Controller: MainCtrl', function () {
     expect(MainCtrl.categoryList[0]['itemList']).toEqual([{ 'name': 'Rent', 'amount': '525' }]);
   });
 
+  it('can handle decimals', function() {
+    MainCtrl.newItem = 'Coffee';
+    MainCtrl.newPrice = '2.80';
+    MainCtrl.addItem(0);
+    expect(MainCtrl.categoryList[0]['itemList'].length).toBe(1);
+    expect(MainCtrl.categoryList[0]['itemList']).toEqual([{ 'name': 'Coffee', 'amount': '2.80' }]);
+    expect(MainCtrl.total).toEqual(2.8);
+  });
+
   it('keeps a running total', function() {
     MainCtrl.newItem = 'Rent';
     MainCtrl.newPrice = '525';
@@ -37,5 +46,12 @@ describe('Controller: MainCtrl', function () {
     MainCtrl.newPrice = '160';
     MainCtrl.addItem(0);
     expect(MainCtrl.total).toEqual(685);
+  });
+
+  it('can create a new category', function() {
+    expect(MainCtrl.categoryList.length).toEqual(3);
+    MainCtrl.newCategory = 'Eating out';
+    MainCtrl.addCategory();
+    expect(MainCtrl.categoryList.length).toEqual(4);
   });
 });
