@@ -1,4 +1,6 @@
-# expenses
+[![Build Status](https://travis-ci.org/dwatson62/expenses.svg?branch=master)](https://travis-ci.org/dwatson62/expenses) [![Code Climate](https://codeclimate.com/github/dwatson62/expenses/badges/gpa.svg)](https://codeclimate.com/github/dwatson62/expenses)
+
+# Expenses
 
 Creating an app in Angular to keep track of my monthly expenses. Main aim is to finish an Angular project that I can use.
 
