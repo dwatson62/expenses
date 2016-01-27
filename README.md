@@ -10,3 +10,14 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+## To Do
+
+- Store data on database
+- Styling with scss
+- Allow deleting items
+- Allow deleting categories
+- Category totals
+- Feature tests
+- CI
+- Create months
