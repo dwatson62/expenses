@@ -64,4 +64,13 @@ angular.module('expensesApp')
       self.updateTotal();
     };
 
+    self.deleteCategory = function(category) {
+      for (var i = 0; i < self.categoryList.length; i ++) {
+        if (self.categoryList[i].name === category) {
+          self.categoryList.splice(i, 1);
+        }
+      }
+      self.updateTotal();
+    };
+
     }]);

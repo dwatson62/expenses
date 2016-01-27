@@ -79,5 +79,16 @@ describe('Controller: MainCtrl', function () {
       MainCtrl.addCategory();
       expect(MainCtrl.categoryList.length).toEqual(4);
     });
+
+    it('can delete a category and all its items', function() {
+      MainCtrl.deleteCategory('Bills');
+      expect(MainCtrl.categoryList.length).toEqual(2);
+    });
+
+    it('deleting a category updates the total', function() {
+      addItem('Rent', '525');
+      MainCtrl.deleteCategory('Bills');
+      expect(MainCtrl.total).toEqual(0);
+    });
   });
 });
