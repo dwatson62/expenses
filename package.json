@@ -1,6 +1,9 @@
 {
   "name": "expenses",
   "private": true,
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "grunt": "^0.4.5",
@@ -33,9 +36,13 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.3",
     "phantomjs": "^1.9.19",
+    "protractor": "^3.0.0",
     "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "bower": "^1.7.7"
   }
 }

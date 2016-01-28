@@ -15,11 +15,8 @@ describe('Controller: MainCtrl', function () {
       $scope: scope
       // place here mocked dependencies
     });
+    MainCtrl.categoryList = [{'name': 'Bills', 'itemList': [] }];
   }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
-  });
 
   var addItem = function(name, price) {
     MainCtrl.newItem = name;
@@ -74,15 +71,16 @@ describe('Controller: MainCtrl', function () {
 
   describe('Categories', function() {
     it('can create a new category', function() {
-      expect(MainCtrl.categoryList.length).toEqual(3);
+      expect(MainCtrl.categoryList.length).toEqual(1);
       MainCtrl.newCategory = 'Eating out';
       MainCtrl.addCategory();
-      expect(MainCtrl.categoryList.length).toEqual(4);
+      expect(MainCtrl.categoryList.length).toEqual(2);
     });
 
     it('can delete a category and all its items', function() {
+      expect(MainCtrl.categoryList.length).toEqual(1);
       MainCtrl.deleteCategory('Bills');
-      expect(MainCtrl.categoryList.length).toEqual(2);
+      expect(MainCtrl.categoryList.length).toEqual(0);
     });
 
     it('deleting a category updates the total', function() {

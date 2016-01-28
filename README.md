@@ -13,19 +13,28 @@ Run `grunt` for building and `grunt serve` for preview.
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+To run unit tests:
+
+```grunt test```
+
+To run feature tests with protractor, in separate terminal windows:
+
+```
+grunt serve
+webdriver-manager-update && webdriver-manager-start
+protractor test/protractor.conf.js
+```
 
 ## To Do
 
+- Build API backend
 - Store data on database
 - Styling with scss
 - Category totals
-- Feature tests
-- CI
 - Create months
 
 ## Technologies Used
 
 - Javascript, Angular
-- Karma, Jasmine
-- Yeoman, Git, Travis
+- Karma, Jasmine, Protractor
+- Yeoman, Git, Travis, Grunt

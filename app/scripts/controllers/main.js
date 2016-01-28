@@ -20,7 +20,8 @@ angular.module('expensesApp')
 
     var self = this;
     self.total = 0;
-    self.categoryList = [{ 'name': 'Bills', 'itemList': [] }, { 'name': 'Food', 'itemList': [] }, { 'name': 'Coffee', 'itemList': [] }];
+    self.categoryList = [];
+
     self.itemForm = { 'Bills': false, 'Food': false, 'Coffee': false };
     self.categoryForm = false;
 
