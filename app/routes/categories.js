@@ -1,14 +1,8 @@
-'use strict';
-
 var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
 var Category = require('../models/category.js');
-
-router.get('/', function(req, res, next) {
-  res.json({ 'message': 'Hello world' });
-});
 
 router.post('/category', function(req, res, next) {
   Category.create(req.body, function(err, category) {

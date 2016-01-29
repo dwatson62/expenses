@@ -23,9 +23,11 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
-var routes = require('./app/routes/index.js');
+var categories = require('./app/routes/categories.js');
+var users = require('./app/routes/users.js');
 
-app.use('/api', routes);
+app.use('/api', categories);
+app.use('/api', users);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
