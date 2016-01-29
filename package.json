@@ -2,7 +2,8 @@
   "name": "expenses",
   "private": true,
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start": "node server.js"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
@@ -43,6 +44,9 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "bower": "^1.7.7"
+    "body-parser": "^1.14.2",
+    "bower": "^1.7.7",
+    "express": "^4.13.4",
+    "mongoose": "^4.3.7"
   }
 }
