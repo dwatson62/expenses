@@ -10,8 +10,15 @@ router.post('/item', function(req, res, next) {
     if (err) { return next(err); }
     item.name = req.body.name;
     item.price = req.body.price;
-    console.log(item.name + ' was created!');
-    res.json(item);
+    Category.find({ 'name': req.body.category }, function(err, category) {
+      if (err) { return next(err); }
+      category[0].items.addToSet(item);
+      category[0].save(function(err, res) {
+        if (err) { return next(err); }
+      });
+      res.json(item);
+      console.log(item.name + ' was created in ' + category[0].name + '!');
+    });
   });
 });
 
