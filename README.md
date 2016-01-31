@@ -27,7 +27,6 @@ protractor test/protractor.conf.js
 
 ## To Do
 
-- Build API backend
 - Store data on database
 - Styling with scss
 - Category totals
