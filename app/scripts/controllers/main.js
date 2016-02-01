@@ -8,7 +8,7 @@
  * Controller of the expensesApp
  */
 angular.module('expensesApp')
-  .controller('MainCtrl', ['itemFactory', 'categoryFactory', function (ItemFactory, CategoryFactory) {
+  .controller('MainCtrl', ['itemFactory', 'categoryFactory', '$http', function (ItemFactory, CategoryFactory, $http) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -24,6 +24,13 @@ angular.module('expensesApp')
 
     self.itemForm = { 'Bills': false, 'Food': false, 'Coffee': false };
     self.categoryForm = false;
+
+    self.initialize = function() {
+      $.get('/api/categories')
+        .done(function(response) {
+          self.categoryList = response.categories;
+        });
+    };
 
     self.addItem = function(index) {
       var item = itemFactory.add(self.newItem, self.newPrice);

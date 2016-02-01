@@ -12,7 +12,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="app/styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="expensesApp">
@@ -49,7 +49,7 @@
     </div>
 
     <div class="container-fluid" ng-controller='MainCtrl as mainCtrl'>
-      <div ng-view=""></div>
+      <div ng-view="" ng-init='mainCtrl.initialize()'></div>
     </div>
 
     <div class="footer">
@@ -81,11 +81,11 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/factories/item.js"></script>
-        <script src="scripts/factories/category.js"></script>
+        <script src="/app/scripts/app.js"></script>
+        <script src="/app/scripts/controllers/main.js"></script>
+        <script src="/app/scripts/controllers/about.js"></script>
+        <script src="/app/scripts/factories/item.js"></script>
+        <script src="/app/scripts/factories/category.js"></script>
         <!-- endbuild -->
 </body>
 </html>

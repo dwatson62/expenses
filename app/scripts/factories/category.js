@@ -1,10 +1,18 @@
 angular.module('expensesApp')
-  .factory('categoryFactory', function() {
+  .factory('categoryFactory', ['$http', function($http) {
     var Category = function() {
 
     };
 
     Category.prototype.add = function(name) {
+      $http.post('/api/category', { name: name })
+        .success(function() {
+          console.log('success!');
+        })
+        .error(function(response) {
+          console.log('fail!');
+          console.log(response);
+        });
       return { 'name': name, 'itemList': [] };
     };
 
@@ -29,4 +37,4 @@ angular.module('expensesApp')
     };
 
     return Category;
-  });
+  }]);
