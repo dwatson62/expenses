@@ -27,8 +27,16 @@ router.get('/category/:id', function(req, res, next) {
   });
 });
 
-router.get('/category/:id/items', function(req, res,next) {
+router.get('/category/:id/items', function(req, res, next) {
   Category.findById(req.params.id)
+    .populate('items')
+    .exec(function(err, categories) {
+      res.json({ categories });
+    });
+});
+
+router.get('/categories/items', function(req, res, next) {
+  Category.find()
     .populate('items')
     .exec(function(err, categories) {
       res.json({ categories });

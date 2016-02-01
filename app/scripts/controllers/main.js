@@ -26,26 +26,38 @@ angular.module('expensesApp')
     self.categoryForm = false;
 
     self.initialize = function() {
-      $.get('/api/categories')
+      self.allItems();
+    };
+
+    self.allItems = function() {
+      categoryFactory.allItems()
         .done(function(response) {
           self.categoryList = response.categories;
+          self.updateTotal();
         });
     };
 
     self.addItem = function(index) {
-      var item = itemFactory.add(self.newItem, self.newPrice);
-      self.categoryList[index].itemList.push(item);
-      self.newItem = '';
-      self.newPrice = '';
-      self.updateTotal();
       var category = self.categoryList[index].name;
+      itemFactory.add(self.newItem, self.newAmount, category)
+        .success(function(item) {
+          console.log('success!');
+          self.categoryList[index].items.push(item);
+        });
+      self.updateTotal();
+      self.clearItemForm(category);
+    };
+
+    self.clearItemForm = function(category) {
+      self.newItem = '';
+      self.newAmount = '';
       self.itemForm[category] = false;
     };
 
     self.updateTotal = function() {
       var total = 0;
       for (var i in self.categoryList) {
-        total += categoryFactory.total(self.categoryList[i].itemList);
+        total += categoryFactory.total(self.categoryList[i].items);
       }
       self.total = total;
     };
@@ -62,8 +74,10 @@ angular.module('expensesApp')
     };
 
     self.addCategory = function() {
-      var category = categoryFactory.add(self.newCategory);
-      self.categoryList.push(category);
+      categoryFactory.add(self.newCategory)
+        .success(function(category) {
+          self.categoryList.push(category);
+        });
       self.newCategory = '';
       self.toggleCategoryForm();
     };

@@ -4,22 +4,18 @@ angular.module('expensesApp')
 
     };
 
-    Category.prototype.add = function(name) {
-      $http.post('/api/category', { name: name })
-        .success(function() {
-          console.log('success!');
-        })
-        .error(function(response) {
-          console.log('fail!');
-          console.log(response);
-        });
-      return { 'name': name, 'itemList': [] };
+    Category.prototype.allItems = function() {
+      return $.get('/api/categories/items');
     };
 
-    Category.prototype.total = function(itemList) {
+    Category.prototype.add = function(name) {
+      return $http.post('/api/category', { name: name });
+    };
+
+    Category.prototype.total = function(items) {
       var total = 0;
-      for (var i in itemList) {
-        total += parseFloat(itemList[i].amount, 10);
+      for (var i in items) {
+        total += parseFloat(items[i].amount, 10);
       }
       return total;
     };
