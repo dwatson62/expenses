@@ -4,12 +4,13 @@
 
 Creating an app in Angular to keep track of my monthly expenses. Main aim is to finish an Angular project that I can use.
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.15.1.
+
+Currently in a basic mode, can add items and categories, which gets saved in the Mongo database. Can delete in-app, but this not yet hooked up to the backend. Most tests are currently broken while I redo all the specs.
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+``` npm start ```
 
 ## Testing
 
@@ -20,14 +21,14 @@ To run unit tests:
 To run feature tests with protractor, in separate terminal windows:
 
 ```
-grunt serve
+npm start
 webdriver-manager-update && webdriver-manager-start
-protractor test/protractor.conf.js
+npm run protractor
 ```
 
 ## To Do
 
-- Store data on database
+- Fix tests
 - Styling with scss
 - Category totals
 - Create months
@@ -36,4 +37,4 @@ protractor test/protractor.conf.js
 
 - Javascript, Angular
 - Karma, Jasmine, Protractor
-- Yeoman, Git, Travis, Grunt
+- Yeoman, Git, Travis, Grunt, MongoDB, Mongoose

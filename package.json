@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "karma start test/karma.conf.js",
+    "protractor": "protractor test/protractor.conf.js"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

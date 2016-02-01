@@ -1,6 +1,6 @@
 describe('Expenses App', function() {
   beforeEach(function() {
-    browser.get('http://localhost:9000');
+    browser.get('http://localhost:8080');
   });
 
   it('has a title', function() {
@@ -30,7 +30,7 @@ describe('Expenses App', function() {
 
   var fillItemForm = function(name, price) {
     element(by.model('mainCtrl.newItem')).sendKeys(name);
-    element(by.model('mainCtrl.newPrice')).sendKeys(price);
+    element(by.model('mainCtrl.newAmount')).sendKeys(price);
   };
 
   var addCategory = function(name) {
@@ -59,7 +59,7 @@ describe('Expenses App', function() {
     it('can delete an item', function() {
       billsCategoryButton.click();
       element(by.model('mainCtrl.newItem')).sendKeys('Rent');
-      element(by.model('mainCtrl.newPrice')).sendKeys('525');
+      element(by.model('mainCtrl.newAmount')).sendKeys('525');
       saveItemButton.click();
       expect(billsList.getText()).toContain('£525 Rent');
       var deleteButton = element.all(by.css('.delete-item-button'));

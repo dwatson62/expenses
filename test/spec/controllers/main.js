@@ -7,21 +7,36 @@ describe('Controller: MainCtrl', function () {
 
   var MainCtrl,
     scope;
+  var httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
     scope = $rootScope.$new();
+    httpBackend = $httpBackend;
     MainCtrl = $controller('MainCtrl', {
-      $scope: scope
-      // place here mocked dependencies
+      $scope: scope,
     });
-    MainCtrl.categoryList = [{'name': 'Bills', 'itemList': [] }];
+    httpBackend
+      .when("POST", "/api/item")
+      .respond(
+        { 'name': 'Rent', 'amount': '525' }
+      );
+    httpBackend
+      .when("POST", "/api/category")
+      .respond(
+        { 'name': 'Bills', }
+      );
+    httpBackend
+      .when("GET", "/api/categories")
+      .respond(
+        [{'name': 'Bills', 'items': [] }]
+      );
+    MainCtrl.categoryList = [{'name': 'Bills', 'items': [] }];
   }));
 
-  var addItem = function(name, price) {
-    MainCtrl.newItem = name;
-    MainCtrl.newPrice = price;
+  var addItem = function() {
     MainCtrl.addItem(0);
+    httpBackend.flush();
   };
 
   var deleteItem = function(name, catIndex) {
@@ -30,15 +45,15 @@ describe('Controller: MainCtrl', function () {
 
   describe('Items', function() {
     it('can add an item to the list with a price', function() {
-      addItem('Rent', '525');
-      expect(MainCtrl.categoryList[0]['itemList'].length).toBe(1);
-      expect(MainCtrl.categoryList[0]['itemList']).toEqual([{ 'name': 'Rent', 'amount': '525' }]);
+      addItem();
+      expect(MainCtrl.categoryList[0].items.length).toBe(1);
+      expect(MainCtrl.categoryList[0].items).toEqual([{ 'name': 'Rent', 'amount': '525' }]);
     });
 
     it('can delete an item from the list', function() {
-      addItem('Rent', '525');
+      addItem();
       deleteItem('Rent', 0);
-      expect(MainCtrl.categoryList[0]['itemList'].length).toBe(0);
+      expect(MainCtrl.categoryList[0]['items'].length).toBe(0);
     });
   });
 
@@ -47,17 +62,13 @@ describe('Controller: MainCtrl', function () {
       MainCtrl.newItem = 'Coffee';
       MainCtrl.newPrice = '2.80';
       MainCtrl.addItem(0);
-      expect(MainCtrl.categoryList[0]['itemList'].length).toBe(1);
-      expect(MainCtrl.categoryList[0]['itemList']).toEqual([{ 'name': 'Coffee', 'amount': '2.80' }]);
+      expect(MainCtrl.categoryList[0]['items'].length).toBe(1);
+      expect(MainCtrl.categoryList[0]['items']).toEqual([{ 'name': 'Coffee', 'amount': '2.80' }]);
       expect(MainCtrl.total).toEqual(2.8);
     });
 
     it('keeps a running total', function() {
-      MainCtrl.newItem = 'Rent';
-      MainCtrl.newPrice = '525';
       MainCtrl.addItem(0);
-      MainCtrl.newItem = 'Oyster';
-      MainCtrl.newPrice = '160';
       MainCtrl.addItem(0);
       expect(MainCtrl.total).toEqual(685);
     });
@@ -72,8 +83,8 @@ describe('Controller: MainCtrl', function () {
   describe('Categories', function() {
     it('can create a new category', function() {
       expect(MainCtrl.categoryList.length).toEqual(1);
-      MainCtrl.newCategory = 'Eating out';
       MainCtrl.addCategory();
+      httpBackend.flush();
       expect(MainCtrl.categoryList.length).toEqual(2);
     });
 
