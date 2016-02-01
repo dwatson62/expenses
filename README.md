@@ -6,7 +6,7 @@ Creating an app in Angular to keep track of my monthly expenses. Main aim is to 
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.15.1.
 
-Currently in a basic mode, can add items and categories, which gets saved in the Mongo database. Can delete in-app, but this not yet hooked up to the backend. Most tests are currently broken while I redo all the specs.
+Currently in a basic mode, can add items and categories, which gets saved in the Mongo database. Can delete items and categories. Most tests are currently broken while I redo all the specs.
 
 ## Build & development
 

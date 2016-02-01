@@ -28,7 +28,7 @@ app.use('/app',  express.static(__dirname + '/app'));
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 var categories = require('./app/routes/categories.js');
 var items = require('./app/routes/items.js');

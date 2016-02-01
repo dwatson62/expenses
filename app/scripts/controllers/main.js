@@ -8,7 +8,7 @@
  * Controller of the expensesApp
  */
 angular.module('expensesApp')
-  .controller('MainCtrl', ['itemFactory', 'categoryFactory', '$http', function (ItemFactory, CategoryFactory, $http) {
+  .controller('MainCtrl', ['itemFactory', 'categoryFactory', 'apiService', '$http', function (ItemFactory, CategoryFactory, apiService, $http) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -30,8 +30,8 @@ angular.module('expensesApp')
     };
 
     self.allItems = function() {
-      categoryFactory.allItems()
-        .done(function(response) {
+      apiService.getCategoryItems()
+        .success(function(response) {
           self.categoryList = response.categories;
           self.updateTotal();
         });
@@ -39,9 +39,9 @@ angular.module('expensesApp')
 
     self.addItem = function(index) {
       var category = self.categoryList[index].name;
-      itemFactory.add(self.newItem, self.newAmount, category)
+      var params = itemFactory.newItem(self.newItem, self.newAmount, category);
+      apiService.createItem(params)
         .success(function(item) {
-          console.log('success!');
           self.categoryList[index].items.push(item);
         });
       self.updateTotal();
@@ -74,7 +74,7 @@ angular.module('expensesApp')
     };
 
     self.addCategory = function() {
-      categoryFactory.add(self.newCategory)
+      apiService.createCategory(self.newCategory)
         .success(function(category) {
           self.categoryList.push(category);
         });
@@ -82,17 +82,15 @@ angular.module('expensesApp')
       self.toggleCategoryForm();
     };
 
-    self.deleteItem = function(item, catIndex) {
-      self.categoryList = categoryFactory.deleteItem(self.categoryList, item, catIndex);
+    self.deleteItem = function(item) {
+      apiService.deleteItem(item);
+      self.allItems();
       self.updateTotal();
     };
 
     self.deleteCategory = function(category) {
-      for (var i = 0; i < self.categoryList.length; i ++) {
-        if (self.categoryList[i].name === category) {
-          self.categoryList.splice(i, 1);
-        }
-      }
+      apiService.deleteCategory(category);
+      self.allItems();
       self.updateTotal();
     };
 

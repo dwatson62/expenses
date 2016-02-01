@@ -4,13 +4,12 @@ angular.module('expensesApp')
 
       };
 
-      Item.prototype.add = function(name, amount, category) {
-        var params = {
+      Item.prototype.newItem = function(name, amount, category) {
+        return {
           name: name,
           amount: amount,
           category: category
         };
-        return $http.post('/api/item', params)
       };
 
       return Item;
