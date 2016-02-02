@@ -82,16 +82,26 @@ angular.module('expensesApp')
       self.toggleCategoryForm();
     };
 
-    self.deleteItem = function(item) {
-      apiService.deleteItem(item);
-      self.allItems();
-      self.updateTotal();
+    self.deleteItem = function(item, itemIndex, catIndex) {
+      self.itemIndex = itemIndex;
+      self.catIndex = catIndex;
+      apiService.deleteItem(item)
+        .success(function() {
+          self.categoryList[self.catIndex].items.splice(self.itemIndex, 1);
+          self.itemIndex = null;
+          self.catIndex = null;
+          self.updateTotal();
+        });
     };
 
-    self.deleteCategory = function(category) {
-      apiService.deleteCategory(category);
-      self.allItems();
-      self.updateTotal();
+    self.deleteCategory = function(category, catIndex) {
+      self.catIndex = catIndex;
+      apiService.deleteCategory(category)
+        .success(function() {
+          self.categoryList.splice(self.catIndex, 1);
+          self.catIndex = null;
+          self.updateTotal();
+        });
     };
 
     }]);

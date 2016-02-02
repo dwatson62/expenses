@@ -1,102 +1,131 @@
-'use strict';
-
 describe('Controller: MainCtrl', function () {
-
-  // load the controller's module
   beforeEach(module('expensesApp'));
 
-  var MainCtrl,
-    scope;
-  var httpBackend;
+  var MainCtrl;
+  var scope;
+  var mockApi;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
-    scope = $rootScope.$new();
-    httpBackend = $httpBackend;
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope,
-    });
-    httpBackend
-      .when("POST", "/api/item")
-      .respond(
-        { 'name': 'Rent', 'amount': '525' }
-      );
-    httpBackend
-      .when("POST", "/api/category")
-      .respond(
-        { 'name': 'Bills', }
-      );
-    httpBackend
-      .when("GET", "/api/categories")
-      .respond(
-        [{'name': 'Bills', 'items': [] }]
-      );
-    MainCtrl.categoryList = [{'name': 'Bills', 'items': [] }];
+  var billsCategory = { '_id': 1, 'name': 'Bills', 'items': [] };
+  var rentItem = { '_id': 1, 'name': 'Rent', 'amount': '525' };
+  var oysterItem = { '_id': 2, 'name': 'Oyster', 'amount': '160' };
+  var coffeeItem = { '_id': 3, 'name': 'Coffee', 'amount': '2.80' };
+
+  var allItems = {
+    'categories': [{'name': 'Bills', 'items': [rentItem, oysterItem] }]
+  };
+
+  beforeEach(inject(function ($controller, apiService) {
+    MainCtrl = $controller('MainCtrl');
+    mockApi = apiService;
   }));
 
-  var addItem = function() {
-    MainCtrl.addItem(0);
-    httpBackend.flush();
+  var mockAPICall = function(method, response) {
+    spyOn(mockApi, method).and.callFake(function() {
+      return {
+        success: function(callback) {
+          callback(response);
+        }
+      };
+    });
   };
 
-  var deleteItem = function(name, catIndex) {
-    MainCtrl.deleteItem(name, catIndex);
-  };
+  describe('On initialize', function() {
+    beforeEach(function() {
+      mockAPICall('getCategoryItems', allItems);
+    });
+
+    it('displays all previously held data', function() {
+      MainCtrl.initialize();
+      expect(MainCtrl.categoryList).toEqual(allItems.categories);
+    });
+
+    it('displays the correct total from previous data', function() {
+      MainCtrl.initialize();
+      expect(MainCtrl.total).toEqual(685);
+    });
+  });
 
   describe('Items', function() {
+    beforeEach(function() {
+      MainCtrl.categoryList = [{'name': 'Bills', 'items': [] }];
+      mockAPICall('createItem', rentItem);
+      mockAPICall('deleteItem', {});
+    });
+
     it('can add an item to the list with a price', function() {
-      addItem();
+      MainCtrl.addItem(0);
       expect(MainCtrl.categoryList[0].items.length).toBe(1);
-      expect(MainCtrl.categoryList[0].items).toEqual([{ 'name': 'Rent', 'amount': '525' }]);
+      expect(MainCtrl.categoryList[0].items).toEqual([rentItem]);
     });
 
     it('can delete an item from the list', function() {
-      addItem();
-      deleteItem('Rent', 0);
+      MainCtrl.addItem(0);
+      MainCtrl.deleteItem(rentItem._id, 0, 0);
       expect(MainCtrl.categoryList[0]['items'].length).toBe(0);
     });
   });
 
   describe('Totals', function() {
+    beforeEach(function() {
+      MainCtrl.categoryList = [{'name': 'Coffee', 'items': [] }];
+    });
+
     it('can handle decimals', function() {
-      MainCtrl.newItem = 'Coffee';
-      MainCtrl.newPrice = '2.80';
+      mockAPICall('createItem', coffeeItem);
+
       MainCtrl.addItem(0);
-      expect(MainCtrl.categoryList[0]['items'].length).toBe(1);
-      expect(MainCtrl.categoryList[0]['items']).toEqual([{ 'name': 'Coffee', 'amount': '2.80' }]);
-      expect(MainCtrl.total).toEqual(2.8);
+      MainCtrl.addItem(0);
+      expect(MainCtrl.categoryList[0]['items'].length).toBe(2);
+      expect(MainCtrl.categoryList[0]['items']).toEqual([coffeeItem, coffeeItem]);
+      expect(MainCtrl.total).toEqual(5.6);
     });
 
     it('keeps a running total', function() {
+      mockAPICall('createItem', rentItem);
+
       MainCtrl.addItem(0);
       MainCtrl.addItem(0);
-      expect(MainCtrl.total).toEqual(685);
+      expect(MainCtrl.total).toEqual(1050);
     });
 
     it('deleting an item updates the total', function() {
-      addItem('Rent', '525');
-      deleteItem('Rent', 0);
+      mockAPICall('createItem', rentItem);
+      mockAPICall('deleteItem', {});
+
+      MainCtrl.addItem(0);
+      expect(MainCtrl.total).toEqual(parseInt(rentItem.amount, 10));
+      MainCtrl.deleteItem(rentItem._id, 0, 0);
       expect(MainCtrl.total).toEqual(0);
     });
   });
 
   describe('Categories', function() {
-    it('can create a new category', function() {
-      expect(MainCtrl.categoryList.length).toEqual(1);
-      MainCtrl.addCategory();
-      httpBackend.flush();
-      expect(MainCtrl.categoryList.length).toEqual(2);
+    beforeEach(function() {
+      mockAPICall('createCategory', billsCategory);
+      mockAPICall('deleteCategory', {});
     });
 
-    it('can delete a category and all its items', function() {
+    it('can create a new category', function() {
+      expect(MainCtrl.categoryList.length).toEqual(0);
+      MainCtrl.addCategory();
       expect(MainCtrl.categoryList.length).toEqual(1);
-      MainCtrl.deleteCategory('Bills');
+    });
+
+    it('can delete a category', function() {
+      MainCtrl.addCategory();
+      expect(MainCtrl.categoryList.length).toEqual(1);
+
+      MainCtrl.deleteCategory(billsCategory._id, 0);
       expect(MainCtrl.categoryList.length).toEqual(0);
     });
 
     it('deleting a category updates the total', function() {
-      addItem('Rent', '525');
-      MainCtrl.deleteCategory('Bills');
+      mockAPICall('createItem', rentItem);
+      MainCtrl.addCategory();
+      MainCtrl.addItem(0);
+      expect(MainCtrl.total).toEqual(parseInt(rentItem.amount, 10));
+
+      MainCtrl.deleteCategory(billsCategory._id, 0);
       expect(MainCtrl.total).toEqual(0);
     });
   });
