@@ -15,8 +15,7 @@
     <p>
     <button class='btn btn-primary new-item-button' type='submit' ng-hide='mainCtrl.itemForm["{{category.name}}"]' ng-click='mainCtrl.showItemForm(category.name)'>New Item</button>
     <ol class='item-list' id='{{category.name}}-list' ng-repeat='item in category.items'>
-      <li><h4>£{{item.amount}} {{item.name}}</h4></li>
-      <span class='delete-item-button' ng-click='mainCtrl.deleteItem(item._id, $index, $parent.$index)'>X</span>
+      <list-item />
     </ol>
   </div>
 </div>
