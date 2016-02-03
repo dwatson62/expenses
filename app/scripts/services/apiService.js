@@ -2,12 +2,12 @@ angular.module('expensesApp')
   .service('apiService', ['$http', function($http) {
     var url = '/api/';
 
-    this.createItem = function(params) {
-      return $http.post(url + 'item', params);
+    this.createItem = function(item) {
+      return $http.post(url + 'item', item);
     };
 
-    this.createCategory = function(name) {
-      return $http.post(url + 'category', { name: name });
+    this.createCategory = function(category) {
+      return $http.post(url + 'category', category);
     };
 
     this.getCategoryItems = function() {

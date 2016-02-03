@@ -32,21 +32,21 @@ describe('Controller: MainCtrl', function () {
   describe('On initialize', function() {
     beforeEach(function() {
       mockAPICall('getCategoryItems', allItems);
+      MainCtrl.initialize();
     });
 
     it('displays all previously held data', function() {
-      MainCtrl.initialize();
       expect(MainCtrl.categoryList).toEqual(allItems.categories);
     });
 
     it('displays the correct total from previous data', function() {
-      MainCtrl.initialize();
       expect(MainCtrl.total).toEqual(685);
     });
   });
 
   describe('Items', function() {
     beforeEach(function() {
+      MainCtrl.initialize();
       MainCtrl.categoryList = [{'name': 'Bills', 'items': [] }];
       mockAPICall('createItem', rentItem);
       mockAPICall('deleteItem', {});
@@ -67,6 +67,7 @@ describe('Controller: MainCtrl', function () {
 
   describe('Totals', function() {
     beforeEach(function() {
+      MainCtrl.initialize();
       MainCtrl.categoryList = [{'name': 'Coffee', 'items': [] }];
     });
 
@@ -101,6 +102,7 @@ describe('Controller: MainCtrl', function () {
 
   describe('Categories', function() {
     beforeEach(function() {
+      MainCtrl.initialize();
       mockAPICall('createCategory', billsCategory);
       mockAPICall('deleteCategory', {});
     });

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dwatson62/expenses.svg?branch=master)](https://travis-ci.org/dwatson62/expenses) [![Code Climate](https://codeclimate.com/github/dwatson62/expenses/badges/gpa.svg)](https://codeclimate.com/github/dwatson62/expenses)
+[![Build Status](https://circleci.com/gh/dwatson62/expenses.svg?&style=shield&circle-token=7ad3e35e7a1bca3bb2c0f7ffb8daf5c50b3b1f60)](https://circleci.com/gh/dwatson62/expenses.svg?&style=shield&circle-token=7ad3e35e7a1bca3bb2c0f7ffb8daf5c50b3b1f60) [![Build Status](https://travis-ci.org/dwatson62/expenses.svg?branch=master)](https://travis-ci.org/dwatson62/expenses) [![Code Climate](https://codeclimate.com/github/dwatson62/expenses/badges/gpa.svg)](https://codeclimate.com/github/dwatson62/expenses)
 
 # Expenses
 
@@ -16,7 +16,7 @@ Currently in a basic mode, can add items and categories, which gets saved in the
 
 To run unit tests:
 
-```npm run karma```
+```npm run test```
 
 To run feature tests with protractor, in separate terminal windows:
 
@@ -28,7 +28,7 @@ npm run protractor
 
 ## To Do
 
-- Fix tests
+- Fix feature tests
 - Styling with scss
 - Category totals
 - Create months
