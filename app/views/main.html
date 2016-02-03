@@ -6,8 +6,7 @@
 </div>
 <div class="jumbotron row">
   <div class='category col-md-4' ng-repeat='category in mainCtrl.categoryList'>
-    <h3>{{category.name}}</h3>
-    <span class='delete-category-button' ng-click='mainCtrl.deleteCategory(category._id, $index)'>X</span>
+    <category />
     <p class='item-form' id='{{category.name}}' ng-show='mainCtrl.itemForm["{{category.name}}"]'>
       <span>£ </span><input type='text' ng-model='mainCtrl.newAmount' size='5'/>
       <input type='text' class='item-form-input' id='{{category.name}}-item-input' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
