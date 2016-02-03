@@ -1,0 +1,8 @@
+<div class='item-form'>
+  <p id='{{category.name}}' ng-show='mainCtrl.itemForm["{{category.name}}"]'>
+    <span>£ </span><input type='text' ng-model='mainCtrl.newAmount' size='5'/>
+    <input type='text' class='item-form-input' id='{{category.name}}-item-input' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
+    <button class='btn btn-primary save-item-button' type='submit' ng-click='mainCtrl.addItem($index)'>Save</button>
+  </p>
+  <button class='btn btn-primary new-item-button' type='submit' ng-hide='mainCtrl.itemForm["{{category.name}}"]' ng-click='mainCtrl.showItemForm(category.name)'>New Item</button>
+</div>

@@ -1,18 +1,10 @@
 <h1 class='total-amount' ng-model='mainCtrl.total'>Total: {{mainCtrl.total | currency:"£"}}</h1>
 <button class='btn btn-primary new-category-button' ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.toggleCategoryForm()'>New Category</button>
-<div class='category-form' ng-show='mainCtrl.categoryForm'>
-  <input class='category-form-input' type='text' ng-model='mainCtrl.newCategory' />
-  <button class='btn btn-primary save-category-button' ng-click='mainCtrl.addCategory()'>Save</button>
-</div>
+<category-form />
 <div class="jumbotron row">
   <div class='category col-md-4' ng-repeat='category in mainCtrl.categoryList'>
     <category />
-    <p class='item-form' id='{{category.name}}' ng-show='mainCtrl.itemForm["{{category.name}}"]'>
-      <span>£ </span><input type='text' ng-model='mainCtrl.newAmount' size='5'/>
-      <input type='text' class='item-form-input' id='{{category.name}}-item-input' ng-model='mainCtrl.newItem' placeholder='Enter the item name...'/>
-      <button class='btn btn-primary save-item-button' type='submit' ng-click='mainCtrl.addItem($index)'>Save</button>
-    <p>
-    <button class='btn btn-primary new-item-button' type='submit' ng-hide='mainCtrl.itemForm["{{category.name}}"]' ng-click='mainCtrl.showItemForm(category.name)'>New Item</button>
+    <item-form />
     <ol class='item-list' id='{{category.name}}-list' ng-repeat='item in category.items'>
       <list-item />
     </ol>
