@@ -4,7 +4,8 @@
   "scripts": {
     "postinstall": "bower install",
     "start": "node server.js",
-    "test": "karma start test/karma.conf.js",
+    "karma": "karma start test/karma.conf.js",
+    "test": "karma start test/karma.conf.js --single-run",
     "protractor": "protractor test/protractor.conf.js"
   },
   "devDependencies": {

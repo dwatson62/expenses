@@ -6,7 +6,7 @@ Creating an app in Angular to keep track of my monthly expenses. Main aim is to 
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.15.1.
 
-Currently in a basic mode, can add items and categories, which gets saved in the Mongo database. Can delete items and categories. Most tests are currently broken while I redo all the specs.
+Currently in a basic mode, can add items and categories, which gets saved in the Mongo database. Can delete items and categories. Feature tests are currently broken, and cannot get Travis to run protractor succesfully.
 
 ## Build & development
 
@@ -16,7 +16,7 @@ Currently in a basic mode, can add items and categories, which gets saved in the
 
 To run unit tests:
 
-```grunt test```
+```npm run karma```
 
 To run feature tests with protractor, in separate terminal windows:
 

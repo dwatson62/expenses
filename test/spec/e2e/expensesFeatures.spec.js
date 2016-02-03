@@ -1,6 +1,6 @@
 describe('Expenses App', function() {
   beforeEach(function() {
-    browser.get('http://localhost:8080');
+    browser.get('http://localhost:3000');
   });
 
   it('has a title', function() {
