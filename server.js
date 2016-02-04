@@ -33,10 +33,12 @@ var port = process.env.PORT || 3000;
 var categories = require('./app/routes/categories.js');
 var items = require('./app/routes/items.js');
 var index = require('./app/routes/index.js');
+var specs = require('./app/routes/specs.js');
 
 app.use('/', index);
 app.use('/api', categories);
 app.use('/api', items);
+app.use('/specs', specs);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
