@@ -3,10 +3,11 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server.js",
+    "start": "NODE_ENV='development' node server.js",
     "karma": "karma start test/karma.conf.js",
     "test": "karma start test/karma.conf.js --single-run",
-    "protractor": "protractor test/protractor.conf.js"
+    "protractor-start": "NODE_ENV='test' node server.js",
+    "protractor-test": "protractor test/protractor.conf.js"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

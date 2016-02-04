@@ -5,17 +5,17 @@ var mongoose   = require('mongoose');
 var path       = require('path');
 
 var mongoUri = process.env.MONGOLAB_URI ||
-  process.env.MONGOHQ_URL ||
-  'mongodb://localhost/expenses';
+               process.env.MONGOHQ_URL ||
+               'mongodb://localhost/expenses_' + process.env.NODE_ENV;
 
 var Item = require('./app/models/item.js');
 var Category = require('./app/models/category.js');
 
 mongoose.connect(mongoUri, function(err) {
-  if(err) {
-    console.log('connection error', err);
+  if (err) {
+    console.log('Connection error:', err);
   } else {
-    console.log('connection successful');
+    console.log('Connection to ' + process.env.NODE_ENV + ' database was successful!');
   }
 });
 
