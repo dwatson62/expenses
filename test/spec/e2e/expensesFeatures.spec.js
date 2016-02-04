@@ -28,9 +28,9 @@ describe('Expenses App', function() {
     expect(element.isDisplayed()).toBeFalsy();
   };
 
-  var fillItemForm = function(name, price) {
+  var fillItemForm = function(name, amount) {
     element(by.model('mainCtrl.newItem')).sendKeys(name);
-    element(by.model('mainCtrl.newAmount')).sendKeys(price);
+    element(by.model('mainCtrl.newAmount')).sendKeys(amount);
   };
 
   var addCategory = function(name) {
@@ -52,7 +52,6 @@ describe('Expenses App', function() {
       isVisible(itemInput);
       fillItemForm('Rent', '525');
       saveItemButton.click();
-      isInvisible(itemForm);
       expect(billsList.getText()).toContain('£525 Rent');
     });
 

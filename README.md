@@ -21,8 +21,8 @@ To run unit tests:
 To run feature tests with protractor, in separate terminal windows:
 
 ```
-npm start
-webdriver-manager-update && webdriver-manager-start
+npm run test-server
+npm run webdriver
 npm run protractor
 ```
 

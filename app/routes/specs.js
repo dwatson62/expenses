@@ -10,8 +10,7 @@ router.get('/clear', function(req, res, next) {
         console.log(err);
         res.json({ 'message': 'There was an error' });
       } else {
-        console.log('Success');
-        console.log(result);
+        console.log('Test data cleared');
         res.redirect('/');
       }
     });
