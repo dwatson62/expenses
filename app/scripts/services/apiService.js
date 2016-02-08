@@ -21,4 +21,13 @@ angular.module('expensesApp')
     this.deleteCategory = function(category) {
       return $http.delete(url + 'category/' + category);
     };
+
+    this.allItems = function() {
+      return $http.get(url + 'items');
+    };
+
+    this.editItem = function(item, amount, name) {
+      var params = { 'amount': amount, 'name': name }
+      return $http.put(url + 'item/' + item, params);
+    };
   }]);

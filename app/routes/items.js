@@ -35,6 +35,22 @@ router.get('/item/:id', function(req, res, next) {
   });
 });
 
+router.put('/item/:id', function(req, res, next) {
+  Item.findById(req.params.id, function(err, item) {
+    if (err) {
+      next(err);
+    } else if (item) {
+      item.amount = req.body.amount;
+      item.name = req.body.name;
+      item.save();
+      res.json(item);
+    } else {
+      console.log('Item not found!');
+      next();
+    }
+  });
+});
+
 router.get('/items', function(req, res) {
   Item.find(function(err, items) {
     if (err) { return next(err); }

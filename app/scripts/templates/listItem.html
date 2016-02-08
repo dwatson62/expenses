@@ -1,3 +1,9 @@
 <li>
-  <span>£{{item.amount}} {{item.name}}</span><span class='delete-item-button' ng-click='mainCtrl.deleteItem(item._id, $index, $parent.$index)'> X</span>
+  <span class='item'>
+    <span ng-hide='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.toggleEditItemForm(item._id)'>£{{item.amount}} {{item.name}}</span>
+    <input type='text' placeholder='{{item.amount}}' value='{{item.amount}}' ng-model='mainCtrl.editItemAmount' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' />
+    <input type='text' placeholder='{{item.name}}' value='{{item.name}}' ng-model='mainCtrl.editItemName' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' />
+    <span class='delete-item-button' ng-hide='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.deleteItem(item._id, $index, $parent.$index)'> X</span>
+    <span class='delete-item-button' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.editItem(item._id, $index, $parent.$index)'> ✓</span>
+  </span>
 </li>

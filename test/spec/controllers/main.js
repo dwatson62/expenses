@@ -58,6 +58,13 @@ describe('Controller: MainCtrl', function () {
       expect(MainCtrl.categoryList[0].items).toEqual([rentItem]);
     });
 
+    it('can edit an item on the list', function() {
+      mockAPICall('editItem', coffeeItem);
+      MainCtrl.addItem(0);
+      MainCtrl.editItem(rentItem._id, 0, 0);
+      expect(MainCtrl.categoryList[0].items).toEqual([coffeeItem]);
+    });
+
     it('can delete an item from the list', function() {
       MainCtrl.addItem(0);
       MainCtrl.deleteItem(rentItem._id, 0, 0);

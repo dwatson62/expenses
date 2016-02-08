@@ -22,10 +22,11 @@ angular.module('expensesApp')
       self.categoryList = [];
       self.categoryForm = false;
       self.itemForm = {};
-      self.allItems();
+      self.showEditItemForm = {};
+      self.allCategories();
     };
 
-    self.allItems = function() {
+    self.allCategories = function() {
       apiService.getCategoryItems()
         .success(function(response) {
           self.categoryList = response.categories;
@@ -47,10 +48,18 @@ angular.module('expensesApp')
       self.categoryForm = !self.categoryForm;
     };
 
-    self.clearItemForm = function(category) {
+    self.toggleEditItemForm = function(item) {
+      for (var i in self.editItemForm) {
+        self.showEditItemForm[i] = false;
+      }
+      self.showEditItemForm[item] = true;
+    };
+
+    self.clearItemForm = function(category, item) {
       self.newItem = '';
       self.newAmount = '';
       self.itemForm[category] = false;
+      self.showEditItemForm[item] = false;
     };
 
     // Totals
@@ -74,8 +83,19 @@ angular.module('expensesApp')
         .success(function(item) {
           self.categoryList[index].items.push(item);
           self.updateTotal();
+          self.clearItemForm(category, item._id);
         });
-      self.clearItemForm(category);
+    };
+
+    self.editItem = function(item, itemIndex, catIndex) {
+      self.itemIndex = itemIndex;
+      self.catIndex = catIndex;
+      apiService.editItem(item, self.editItemAmount, self.editItemName)
+        .success(function(item) {
+          self.categoryList[self.catIndex].items[self.itemIndex] = item;
+          self.updateTotal();
+          self.showEditItemForm[item._id] = false;
+        });
     };
 
     self.deleteItem = function(item, itemIndex, catIndex) {

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "start": "NODE_ENV='development' node server.js",
+    "start": "NODE_ENV='development' nodemon server.js",
     "karma": "karma start test/karma.conf.js",
     "test": "karma start test/karma.conf.js --single-run",
     "test-server": "NODE_ENV='test' node server.js",
