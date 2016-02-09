@@ -16,6 +16,7 @@ describe('Expenses App', function() {
   var itemForm = element.all(by.css('.item-form')).get(0);
   var itemInput = element(by.css('#Bills-item-input'));
   var saveItemButton = element.all(by.css('.save-item-button')).get(0);
+  var saveEditItemButton = element.all(by.css('.edit-item-submit'));
   var billsList = element.all(by.css('.item-list')).get(0);
 
   var totalAmount = element.all(by.css('.total-amount')).get(0);
@@ -31,6 +32,11 @@ describe('Expenses App', function() {
   var fillItemForm = function(name, amount) {
     element(by.model('mainCtrl.newItem')).sendKeys(name);
     element(by.model('mainCtrl.newAmount')).sendKeys(amount);
+  };
+
+  var fillEditItemForm = function(name, amount) {
+    element(by.model('mainCtrl.editItemName')).sendKeys(name);
+    element(by.model('mainCtrl.editItemAmount')).sendKeys(amount);
   };
 
   var addCategory = function(name) {
@@ -53,6 +59,21 @@ describe('Expenses App', function() {
       fillItemForm('Rent', '525');
       saveItemButton.click();
       expect(billsList.getText()).toContain('£525 Rent');
+    });
+
+    it('can edit an item', function() {
+      billsCategoryButton.click();
+      fillItemForm('Rent', '525');
+      saveItemButton.click();
+      expect(billsList.getText()).toContain('£525 Rent');
+      billsList.click();
+      isVisible(element.all(by.css('.edit-item-name')));
+      isVisible(element.all(by.css('.edit-item-amount')));
+      fillEditItemForm('Oyster', '160');
+      saveEditItemButton.click();
+      isInvisible(element.all(by.css('.edit-item-name')).get(0));
+      isInvisible(element.all(by.css('.edit-item-amount')).get(0));
+      expect(billsList.getText()).toContain('£160 Oyster');
     });
 
     it('can delete an item', function() {

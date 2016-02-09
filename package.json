@@ -5,7 +5,7 @@
     "postinstall": "bower install",
     "start": "NODE_ENV='development' nodemon server.js",
     "karma": "karma start test/karma.conf.js",
-    "test": "karma start test/karma.conf.js --single-run",
+    "test": "karma start test/karma.conf.js",
     "test-server": "NODE_ENV='test' node server.js",
     "webdriver": "webdriver-manager update && webdriver-manager start",
     "protractor": "protractor test/protractor.conf.js"
