@@ -5,11 +5,21 @@ var mongoose = require('mongoose');
 var Category = require('../models/category.js');
 var Item = require('../models/item.js');
 
+var attributes = ['amount', 'name'];
+
+var updateItemAttributes = function(item, params) {
+  attributes.forEach(function(attribute) {
+    if (params[attribute]) {
+      item[attribute] = params[attribute];
+      item.save();
+    }
+  });
+};
+
 router.post('/item', function(req, res, next) {
   Item.create(req.body, function(err, item) {
     if (err) { return next(err); }
-    item.name = req.body.name;
-    item.price = req.body.price;
+    updateItemAttributes(item, req.body);
     Category.find({ 'name': req.body.category }, function(err, category) {
       if (err) { return next(err); }
       category[0].items.addToSet(item);
@@ -40,9 +50,7 @@ router.put('/item/:id', function(req, res, next) {
     if (err) {
       next(err);
     } else if (item) {
-      item.amount = req.body.amount;
-      item.name = req.body.name;
-      item.save();
+      updateItemAttributes(item, req.body);
       res.json(item);
     } else {
       console.log('Item not found!');

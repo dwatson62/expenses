@@ -31,7 +31,7 @@ npm run protractor
 - Styling with scss
 - Category totals
 - Create months
-- Allow user to edit category and item after creation
+- Allow user to edit category after creation
 - Add date to item field
 
 ## Technologies Used
