@@ -64,7 +64,7 @@ describe('Expenses App', function() {
     it('must fill in all fields to add an item', function() {
       billsCategoryButton.click();
       saveItemButton.click();
-      expect(billsList.length).toBeUndefined();
+      expect(element.all(by.css('.item-list')).count()).toBe(0);
     });
 
     it('can edit an item', function() {
@@ -95,7 +95,7 @@ describe('Expenses App', function() {
   });
 
   describe('Categories', function() {
-    it('can add a new item', function() {
+    it('can add a new category', function() {
       expect(element.all(by.css('.category')).count()).toBe(0);
       isVisible(newCategoryButton);
       newCategoryButton.click();
@@ -108,6 +108,12 @@ describe('Expenses App', function() {
       isInvisible(saveCategoryButton);
       isVisible(newCategoryButton);
       expect(element.all(by.css('.category')).count()).toBe(1);
+    });
+
+    it('name must be filled in', function() {
+      newCategoryButton.click();
+      saveCategoryButton.click();
+      expect(element.all(by.css('.category')).count()).toBe(0);
     });
 
     it('can delete a category', function() {

@@ -5,12 +5,18 @@ var mongoose = require('mongoose');
 var Category = require('../models/category.js');
 var Item = require('../models/item.js');
 
+var buildCategory = function(params) {
+  return new Category({
+    name: params.name
+  });
+};
+
 router.post('/category', function(req, res, next) {
-  Category.create(req.body, function(err, category) {
+  var newCategory = buildCategory(req.body);
+  newCategory.save(function(err) {
     if (err) { return next(err); }
-    category.name = req.body.name;
-    console.log(category.name + ' was created!');
-    res.json(category);
+    console.log(newCategory.name + ' was created!');
+    res.json(newCategory);
   });
 });
 
