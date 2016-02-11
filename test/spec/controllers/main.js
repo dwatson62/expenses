@@ -2,7 +2,6 @@ describe('Controller: MainCtrl', function () {
   beforeEach(module('expensesApp'));
 
   var MainCtrl;
-  var scope;
   var mockApi;
 
   var billsCategory = { '_id': 1, 'name': 'Bills', 'items': [] };

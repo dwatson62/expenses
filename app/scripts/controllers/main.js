@@ -77,13 +77,13 @@ angular.module('expensesApp')
     // Items
 
     self.addItem = function(index) {
-      var category = self.categoryList[index].name;
-      var item = new Item(self.newItem, self.newAmount, category);
+      var category = self.categoryList[index];
+      var item = new Item(self.newItem, self.newAmount, category._id);
       apiService.createItem(item)
         .success(function(item) {
           self.categoryList[index].items.push(item);
           self.updateTotal();
-          self.clearItemForm(category, item._id);
+          self.clearItemForm(category.name, item._id);
         });
     };
 

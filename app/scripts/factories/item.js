@@ -1,12 +1,12 @@
 angular.module('expensesApp')
-  .factory('itemFactory', ['$http', function($http) {
-      var Item = function(name, amount, category) {
-        return {
-          name: name,
-          amount: amount,
-          category: category
-        };
+  .factory('itemFactory', function() {
+    var Item = function(name, amount, category) {
+      return {
+        name: name,
+        amount: amount,
+        category_id: category
       };
+    };
 
-      return Item;
-  }]);
+    return Item;
+  });

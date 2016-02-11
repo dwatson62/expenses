@@ -61,6 +61,12 @@ describe('Expenses App', function() {
       expect(billsList.getText()).toContain('£525 Rent');
     });
 
+    it('must fill in all fields to add an item', function() {
+      billsCategoryButton.click();
+      saveItemButton.click();
+      expect(billsList.length).toBeUndefined();
+    });
+
     it('can edit an item', function() {
       billsCategoryButton.click();
       fillItemForm('Rent', '525');

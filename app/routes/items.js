@@ -5,29 +5,37 @@ var mongoose = require('mongoose');
 var Category = require('../models/category.js');
 var Item = require('../models/item.js');
 
-var attributes = ['amount', 'name'];
+var attributes = ['amount', 'name', 'category_id'];
 
 var updateItemAttributes = function(item, params) {
   attributes.forEach(function(attribute) {
     if (params[attribute]) {
       item[attribute] = params[attribute];
-      item.save();
     }
   });
 };
 
+var buildItem = function(params, category) {
+  return new Item({
+    name: params.name,
+    amount: params.amount,
+    category_id: category
+  });
+};
+
 router.post('/item', function(req, res, next) {
-  Item.create(req.body, function(err, item) {
+  if (req.body.category_id === undefined) { return next(); }
+  Category.findById(req.body.category_id, function(err, category) {
     if (err) { return next(err); }
-    updateItemAttributes(item, req.body);
-    Category.find({ 'name': req.body.category }, function(err, category) {
+    var newItem = buildItem(req.body, category.id);
+    newItem.save(function(err) {
       if (err) { return next(err); }
-      category[0].items.addToSet(item);
-      category[0].save(function(err) {
+      category.items.addToSet(newItem)
+      category.save(function(err) {
         if (err) { return next(err); }
+        console.log(newItem.name + ' was created in ' + category.name + '!');
+        res.json(newItem);
       });
-      console.log(item.name + ' was created in ' + category[0].name + '!');
-      res.json(item);
     });
   });
 });
