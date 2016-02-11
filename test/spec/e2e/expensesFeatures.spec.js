@@ -8,17 +8,19 @@ describe('Expenses App', function() {
   });
 
   var newCategoryButton = element.all(by.css('.new-category-button')).get(0);
+  var saveCategoryButton = element.all(by.css('.save-category-button')).get(0);
   var categoryForm = element.all(by.css('.category-form')).get(0);
   var categoryInput = element.all(by.css('.category-form-input'));
-  var saveCategoryButton = element.all(by.css('.save-category-button')).get(0);
 
   var billsCategoryButton = element.all(by.css('.new-item-button')).get(0);
   var itemForm = element.all(by.css('.item-form')).get(0);
   var itemInput = element(by.css('#Bills-item-input'));
+
   var saveItemButton = element.all(by.css('.save-item-button')).get(0);
   var saveEditItemButton = element.all(by.css('.edit-item-submit'));
-  var billsList = element.all(by.css('.item-list')).get(0);
+  var saveEditCategoryButton = element.all(by.css('.edit-category-submit'));
 
+  var billsList = element.all(by.css('.item-list')).get(0);
   var totalAmount = element.all(by.css('.total-amount')).get(0);
 
   var isVisible = function(element) {
@@ -111,9 +113,25 @@ describe('Expenses App', function() {
     });
 
     it('name must be filled in', function() {
-      newCategoryButton.click();
-      saveCategoryButton.click();
+      addCategory('');
       expect(element.all(by.css('.category')).count()).toBe(0);
+    });
+
+    it('can edit a category name', function() {
+      addCategory('Bills');
+      var category = element.all(by.css('.category-name')).get(0);
+      var categoryList = element.all(by.css('.category'));
+      expect(category.getText()).toEqual('Bills');
+      expect(categoryList.count()).toBe(1);
+
+      category.click();
+      isVisible(element.all(by.css('.edit-category-name')));
+      element(by.model('mainCtrl.editCategoryName')).sendKeys('Food');
+      saveEditCategoryButton.click();
+      isInvisible(element.all(by.css('.edit-category-name')).get(0));
+
+      expect(categoryList.count()).toBe(1);
+      expect(category.getText()).toEqual('Food');
     });
 
     it('can delete a category', function() {

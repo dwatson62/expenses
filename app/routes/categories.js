@@ -33,11 +33,28 @@ router.get('/category/:id', function(req, res, next) {
   });
 });
 
+router.put('/category/:id', function(req, res, next) {
+  Category.findByIdAndUpdate(req.params.id, { name: req.body.name }, function(err, category) {
+    if (err) {
+      next(err);
+    } else if (category) {
+      Category.findById(req.params.id)
+        .populate('items')
+        .exec(function(err, category) {
+          res.json({ category });
+        });
+    } else {
+      console.log('Category not found!');
+      next();
+    }
+  });
+});
+
 router.get('/category/:id/items', function(req, res, next) {
   Category.findById(req.params.id)
     .populate('items')
-    .exec(function(err, categories) {
-      res.json({ categories });
+    .exec(function(err, category) {
+      res.json({ category });
     });
 });
 

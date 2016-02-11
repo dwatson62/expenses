@@ -23,6 +23,7 @@ angular.module('expensesApp')
       self.categoryForm = false;
       self.itemForm = {};
       self.showEditItemForm = {};
+      self.showEditCategoryForm = {};
       self.allCategories();
     };
 
@@ -53,6 +54,13 @@ angular.module('expensesApp')
         self.showEditItemForm[i] = false;
       }
       self.showEditItemForm[item] = true;
+    };
+
+    self.toggleEditCategoryForm = function(category) {
+      for (var i in self.editCategoryForm) {
+        self.showEditCategoryForm[i] = false;
+      }
+      self.showEditCategoryForm[category] = true;
     };
 
     self.clearItemForm = function(category, item) {
@@ -120,6 +128,16 @@ angular.module('expensesApp')
           self.itemForm[category.name] = false;
         });
       self.toggleCategoryForm();
+    };
+
+    self.editCategory = function(category, catIndex) {
+      self.catIndex = catIndex;
+      apiService.editCategory(category, self.editCategoryName)
+        .success(function(response) {
+          var updatedCategory = response.category
+          self.categoryList[self.catIndex] = updatedCategory;
+          self.showEditCategoryForm[updatedCategory._id] = false;
+        });
     };
 
     self.deleteCategory = function(category, catIndex) {

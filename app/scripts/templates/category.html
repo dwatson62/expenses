@@ -1,1 +1,6 @@
-<div><span>{{category.name}}</span> <span class='delete-category-button' ng-click='mainCtrl.deleteCategory(category._id, $index)'> X</span></div>
+<div>
+  <span class='category-name' ng-hide='mainCtrl.showEditCategoryForm["{{category._id}}"]' ng-click='mainCtrl.toggleEditCategoryForm(category._id)'>{{category.name}}</span> <span class='delete-category-button' ng-click='mainCtrl.deleteCategory(category._id, $index)'> X</span>
+  <input type='text' class='edit-category-name' placeholder='{{category.name}}' value='{{category.name}}' ng-model='mainCtrl.editCategoryName' ng-show='mainCtrl.showEditCategoryForm["{{category._id}}"]' />
+  <span class='edit-category-submit' ng-show='mainCtrl.showEditCategoryForm["{{category._id}}"]' ng-click='mainCtrl.editCategory(category._id, $index)'> ✓</span>
+</div>
+

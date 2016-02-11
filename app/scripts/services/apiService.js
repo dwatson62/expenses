@@ -6,8 +6,18 @@ angular.module('expensesApp')
       return $http.post(url + 'item', item);
     };
 
+    this.editItem = function(item, amount, name) {
+      var params = { 'amount': amount, 'name': name };
+      return $http.put(url + 'item/' + item, params);
+    };
+
     this.createCategory = function(category) {
       return $http.post(url + 'category', category);
+    };
+
+    this.editCategory = function(category, name) {
+      var params = { 'name': name };
+      return $http.put(url + 'category/' + category, params);
     };
 
     this.getCategoryItems = function() {
@@ -24,10 +34,5 @@ angular.module('expensesApp')
 
     this.allItems = function() {
       return $http.get(url + 'items');
-    };
-
-    this.editItem = function(item, amount, name) {
-      var params = { 'amount': amount, 'name': name }
-      return $http.put(url + 'item/' + item, params);
     };
   }]);

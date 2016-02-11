@@ -5,6 +5,7 @@ describe('Controller: MainCtrl', function () {
   var mockApi;
 
   var billsCategory = { '_id': 1, 'name': 'Bills', 'items': [] };
+  var foodCategory = { '_id': 1, 'name': 'Food', 'items': [] };
   var rentItem = { '_id': 1, 'name': 'Rent', 'amount': '525' };
   var oysterItem = { '_id': 2, 'name': 'Oyster', 'amount': '160' };
   var coffeeItem = { '_id': 3, 'name': 'Coffee', 'amount': '2.80' };
@@ -117,6 +118,13 @@ describe('Controller: MainCtrl', function () {
       expect(MainCtrl.categoryList.length).toEqual(0);
       MainCtrl.addCategory();
       expect(MainCtrl.categoryList.length).toEqual(1);
+    });
+
+    it('can edit a category', function() {
+      var response = { 'category': foodCategory };
+      mockAPICall('editCategory', response);
+      MainCtrl.editCategory(billsCategory._id, 0);
+      expect(MainCtrl.categoryList).toEqual([foodCategory]);
     });
 
     it('can delete a category', function() {
