@@ -123,7 +123,7 @@ describe('Controller: MainCtrl', function () {
     it('can edit a category', function() {
       var response = { 'category': foodCategory };
       mockAPICall('editCategory', response);
-      MainCtrl.editCategory(billsCategory._id, 0);
+      MainCtrl.editCategory(billsCategory, 0);
       expect(MainCtrl.categoryList).toEqual([foodCategory]);
     });
 

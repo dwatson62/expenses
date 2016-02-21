@@ -98,7 +98,9 @@ angular.module('expensesApp')
     self.editItem = function(item, itemIndex, catIndex) {
       self.itemIndex = itemIndex;
       self.catIndex = catIndex;
-      apiService.editItem(item, self.editItemAmount, self.editItemName)
+      var amount = self.editItemAmount || item.amount;
+      var name = self.editItemName || item.name;
+      apiService.editItem(item._id, amount, name)
         .success(function(item) {
           self.categoryList[self.catIndex].items[self.itemIndex] = item;
           self.updateTotal();
@@ -132,9 +134,10 @@ angular.module('expensesApp')
 
     self.editCategory = function(category, catIndex) {
       self.catIndex = catIndex;
-      apiService.editCategory(category, self.editCategoryName)
+      var name = self.editCategoryName || category.name;
+      apiService.editCategory(category._id, name)
         .success(function(response) {
-          var updatedCategory = response.category
+          var updatedCategory = response.category;
           self.categoryList[self.catIndex] = updatedCategory;
           self.showEditCategoryForm[updatedCategory._id] = false;
         });

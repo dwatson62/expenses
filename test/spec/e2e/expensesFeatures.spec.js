@@ -84,6 +84,16 @@ describe('Expenses App', function() {
       expect(billsList.getText()).toContain('£160 Oyster');
     });
 
+    it('when editing, keeps originals if none supplied', function() {
+      billsCategoryButton.click();
+      fillItemForm('Rent', '525');
+      saveItemButton.click();
+      expect(billsList.getText()).toContain('£525 Rent');
+      billsList.click();
+      saveEditItemButton.click();
+      expect(billsList.getText()).toContain('£525 Rent');
+    });
+
     it('can delete an item', function() {
       billsCategoryButton.click();
       element(by.model('mainCtrl.newItem')).sendKeys('Rent');
@@ -132,6 +142,21 @@ describe('Expenses App', function() {
 
       expect(categoryList.count()).toBe(1);
       expect(category.getText()).toEqual('Food');
+    });
+
+    it('when editing, if no name supplied, keeps original', function() {
+      addCategory('Bills');
+      var category = element.all(by.css('.category-name')).get(0);
+      var categoryList = element.all(by.css('.category'));
+      expect(category.getText()).toEqual('Bills');
+      expect(categoryList.count()).toBe(1);
+
+      category.click();
+      element(by.model('mainCtrl.editCategoryName')).sendKeys('');
+      saveEditCategoryButton.click();
+
+      expect(categoryList.count()).toBe(1);
+      expect(category.getText()).toEqual('Bills');
     });
 
     it('can delete a category', function() {

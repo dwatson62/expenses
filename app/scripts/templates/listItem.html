@@ -4,6 +4,6 @@
     <input type='text' class='edit-item-name' placeholder='{{item.amount}}' value='{{item.amount}}' ng-model='mainCtrl.editItemAmount' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' />
     <input type='text' class='edit-item-amount' placeholder='{{item.name}}' value='{{item.name}}' ng-model='mainCtrl.editItemName' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' />
     <span class='delete-item-button' ng-hide='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.deleteItem(item._id, $index, $parent.$index)'> X</span>
-    <span class='edit-item-submit' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.editItem(item._id, $index, $parent.$index)'> ✓</span>
+    <span class='edit-item-submit' ng-show='mainCtrl.showEditItemForm["{{item._id}}"]' ng-click='mainCtrl.editItem(item, $index, $parent.$index)'> ✓</span>
   </span>
 </li>
