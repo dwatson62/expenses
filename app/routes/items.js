@@ -54,12 +54,13 @@ router.get('/item/:id', function(req, res, next) {
 });
 
 router.put('/item/:id', function(req, res, next) {
-  Item.findById(req.params.id, function(err, item) {
+  Item.findByIdAndUpdate(req.params.id, { 'name': req.body.name, 'amount': req.body.amount }, function(err) {
     if (err) {
       next(err);
-    } else if (item) {
-      updateItemAttributes(item, req.body);
-      res.json(item);
+    } else if (!err) {
+      Item.findById(req.params.id, function(err, updatedItem) {
+        res.json(updatedItem);
+      });
     } else {
       console.log('Item not found!');
       next();
