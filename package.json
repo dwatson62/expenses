@@ -8,7 +8,9 @@
     "test": "karma start test/karma.conf.js",
     "test-server": "NODE_ENV='test' node server.js",
     "webdriver": "webdriver-manager update && webdriver-manager start",
-    "protractor": "protractor test/protractor.conf.js"
+    "protractor": "protractor test/protractor.conf.js",
+    "build-css": "./bin/build-css",
+    "watch-css": "./bin/watch-css"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
@@ -41,6 +43,7 @@
     "karma": "^0.13.19",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.3",
+    "node-sass": "^3.7.0",
     "phantomjs": "^1.9.19",
     "protractor": "^3.0.0",
     "time-grunt": "^1.0.0"
