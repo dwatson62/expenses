@@ -1,8 +1,15 @@
-<h1 class='total-amount' ng-model='mainCtrl.total'>Total: {{mainCtrl.total | currency:"£"}}</h1>
-<button class='btn btn-primary new-category-button' ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.toggleCategoryForm()'>New Category</button>
-<category-form />
-<div class="jumbotron row">
-  <div class='category col-md-4' ng-repeat='category in mainCtrl.categoryList'>
+<div class='row header'>
+  <div class='col-md-3'></div>
+  <div class='col-md-3 right-aligned'>
+    <h1 class='total-amount' ng-model='mainCtrl.total'>Total: {{mainCtrl.total | currency:"£"}}</h1>
+  </div>
+  <div class='col-md-3'>
+    <button class='btn btn-primary new-category-button' ng-hide='mainCtrl.categoryForm' ng-click='mainCtrl.toggleCategoryForm()'>New Category</button>
+    <category-form />
+  </div>
+</div>
+<div class="row category-row">
+  <div class='category centre-aligned col-md-4' ng-repeat='category in mainCtrl.categoryList'>
     <category />
     <item-form />
     <ol class='item-list' id='{{category.name}}-list' ng-repeat='item in category.items'>
