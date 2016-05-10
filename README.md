@@ -4,11 +4,13 @@ Creating an app in Angular to keep track of my monthly expenses. Main aim is to 
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular) version 0.15.1.
 
-Currently in basic, unstyled mode. Can perform CRUD operations for items and categories, which gets saved in the Mongo database. Unable to get Travis to run protractor tests succesfully.
+Can perform basic CRUD operations for items and categories, which gets saved in the Mongo database. Unable to get Travis to run protractor tests succesfully.
 
 ## Build & development
 
-``` npm start ```
+``` npm start ``` to start the server
+``` npm run build-css ``` to compile scss to css changes
+``` npm run watch-css ``` to watch for css changes
 
 ## Testing
 
