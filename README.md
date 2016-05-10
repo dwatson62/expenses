@@ -8,8 +8,10 @@ Can perform basic CRUD operations for items and categories, which gets saved in 
 
 ## Build & development
 
-``` npm start ``` to start the server
+``` npm start ``` to start the server 
+
 ``` npm run build-css ``` to compile scss to css changes
+
 ``` npm run watch-css ``` to watch for css changes
 
 ## Testing
